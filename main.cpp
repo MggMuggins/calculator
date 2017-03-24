@@ -28,32 +28,35 @@ int main() {
     //Finishes out the for loop, since the loop doesn't read the last number in the expression
     cin >> expression[numb-1].value;
 
-    /*Printing...*/
+    /*Printing...*
     for (i = 0; i < numb; ++i) {
         expression[i].writeSelf();
     }
+    //*/
     cout << endl;
     //Linear Algorithm for Class
     total = expression[0].value;
     for (i = 1; i < numb; ++i) {
         switch (expression[i].oprtn) {
         case '*':
-            total += expression[i].value * expression[i+1].value;
+            total *= expression[i].value * expression[i+1].value;
             break;
         case '/':
-            total += expression[i].value / expression[i+1].value;
+            //This is a little messy, but it works
+            total = total / expression[i].value / expression[i+1].value;
             break;
         case '+':
             total += expression[i].value + expression[i+1].value;
             break;
         case '-':
-            total += expression[i].value - expression[i+1].value;
+            total -= expression[i].value + expression[i+1].value;
             break;
         case ' ':
             //Grab the default value and don't default, just do nothing
             break;
         default:
             cout << "Invalid Operator." << endl;
+            return 1;
             break;
         }
     }
