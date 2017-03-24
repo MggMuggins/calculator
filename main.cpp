@@ -14,11 +14,13 @@ struct Thing {
 
 int main() {
     int numb, i;
+    double total = 0;
     //Figure out the number of things we need
     cout << "How many numbers are you going to put in? ";
     cin >> numb;
-    Thing expression[numb], midway[numb], finish[numb];
+    Thing expression[numb];
 
+    //Reading into the array
     cout << "Print your expression: ";
     for (i = 0; i < numb - 1; ++i) {
         cin >> expression[i].value >> expression[i].oprtn;
@@ -30,26 +32,31 @@ int main() {
     for (i = 0; i < numb; ++i) {
         expression[i].writeSelf();
     }
-
-    /*Attempting to do order of operations
-    for (i = 0; i < numb; ++i) {
+    cout << endl;
+    //Linear Algorithm for Class
+    total = expression[0].value;
+    for (i = 1; i < numb; ++i) {
         switch (expression[i].oprtn) {
         case '*':
-            midway[i].value = expression[i].value * expression[i+1].value;
-            midway[i].oprtn = expression[i+1].oprtn;
+            total += expression[i].value * expression[i+1].value;
             break;
         case '/':
-            midway[i].value = expression[i].value / expression[i+1].value;
+            total += expression[i].value / expression[i+1].value;
+            break;
+        case '+':
+            total += expression[i].value + expression[i+1].value;
+            break;
+        case '-':
+            total += expression[i].value - expression[i+1].value;
+            break;
+        case ' ':
+            //Grab the default value and don't default, just do nothing
             break;
         default:
+            cout << "Invalid Operator." << endl;
             break;
         }
     }
-
-    //Print the midway array to see what is there
-    cout << endl;
-    for (i = 0; i < numb; ++i) {
-        midway[i].writeSelf();
-    }*/
+    cout << total << endl;
     return 0;
 }
